@@ -66,7 +66,7 @@ const removeTask = (e) =>{
             //Remove from Local Storage
             let taskToRemove = e.target.parentElement.parentElement.textContent;
             let tasks = getLocalStorage('tasks')
-            let t = tasks.forEach((task, index)=>{
+            tasks.forEach((task, index)=>{
                 if(taskToRemove === task){
                     tasks.splice(index, 1);
                 }
@@ -80,10 +80,13 @@ const clearTasks = ()=>{
     //taskList.innerHTML = '';
     //Or
     //https://www.measurethat.net/Benchmarks/Show/34/0/innerhtml-vs-removechild
-    while(taskList.firstChild){
-        taskList.removeChild(taskList.firstChild);
+    if(confirm('Are you sure you want to delete all items'))
+    {
+        while(taskList.firstChild){
+            taskList.removeChild(taskList.firstChild);
+        }
+        clearLocalStorage();
     }
-    clearLocalStorage();
 }
 
 const filterTasks = (e)=> {
