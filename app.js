@@ -64,7 +64,7 @@ const removeTask = (e) =>{
         title: 'Confirm !!',
         content: 'Are you sure you want to delete this task ?',
         buttonCancel: "No, Keep it!", // custom button text
-        buttonConfirm: "Yes, Delete all!",
+        buttonConfirm: "Yes, Delete it!",
         onConfirm() {
             e.target.parentElement.parentElement.remove();
             //Remove from Local Storage
@@ -91,7 +91,7 @@ const clearTasks = ()=>{
         title: 'Confirm !!',
         content: 'Are you sure you want to delete all tasks ?',
         buttonCancel: "No, Keep it!", // custom button text
-        buttonConfirm: "Yes, Delete it!",
+        buttonConfirm: "Yes, Delete all!",
         onConfirm() {
             while(taskList.firstChild){
                 taskList.removeChild(taskList.firstChild);
