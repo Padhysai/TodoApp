@@ -24,6 +24,16 @@ const addTask = (e) => {
     new Attention.Alert({
         title: 'Alert!',
         content: 'Oops! Please enter a task!',
+        beforeRender: () =>{
+            console.log('before')
+            var element = document.querySelector('#main');
+            element.classList.add("darkenPage");
+        },
+        afterClose: () =>{
+            console.log('after')
+            var element = document.querySelector('#main');
+            element.classList.remove("darkenPage");
+        }
     });
     else
     {
@@ -80,6 +90,16 @@ const removeTask = (e) =>{
         },
         onCancel() {
           console.log('Canceled');
+        },
+        beforeRender: () =>{
+            console.log('before')
+            var element = document.querySelector('#main');
+            element.classList.add("darkenPage");
+        },
+        afterClose: () =>{
+            console.log('after')
+            var element = document.querySelector('#main');
+            element.classList.remove("darkenPage");
         }
     });
 }
@@ -102,13 +122,33 @@ const clearTasks = ()=>{
             },
             onCancel() {
             console.log('Canceled');
+            },
+            beforeRender: () =>{
+                console.log('before')
+                var element = document.querySelector('#main');
+                element.classList.add("darkenPage");
+            },
+            afterClose: () =>{
+                console.log('after')
+                var element = document.querySelector('#main');
+                element.classList.remove("darkenPage");
             }
         });
     }
     else{
         new Attention.Alert({
             title: 'Alert!',
-            content: 'You dont have any tasks to clear.'
+            content: 'You dont have any tasks to clear.',
+            beforeRender: () =>{
+                console.log('before')
+                var element = document.querySelector('#main');
+                element.classList.add("darkenPage");
+            },
+            afterClose: () =>{
+                console.log('after')
+                var element = document.querySelector('#main');
+                element.classList.remove("darkenPage");
+            }
         });
     }
 }
