@@ -60,8 +60,12 @@ const addTask = (e) => {
 const removeTask = (e) =>{
     //console.log(e.target)
     // Event Delegation --- targetting the "delete-item" class
-    if(e.target.parentElement.classList.contains('delete-item')){
-        if(confirm('Are you sure you want to delete')){
+    new Attention.Confirm({
+        title: 'Confirm !!',
+        content: 'Are you sure you want to delete this task ?',
+        buttonCancel: "No, Keep it!", // custom button text
+        buttonConfirm: "Yes, Delete all!",
+        onConfirm() {
             e.target.parentElement.parentElement.remove();
             //Remove from Local Storage
             let taskToRemove = e.target.parentElement.parentElement.textContent;
@@ -72,21 +76,32 @@ const removeTask = (e) =>{
                 }
             })
             setLocalStorage('tasks', tasks)
+        },
+        onCancel() {
+          console.log('Canceled');
         }
-    }
+    });
 }
 
 const clearTasks = ()=>{
     //taskList.innerHTML = '';
     //Or
     //https://www.measurethat.net/Benchmarks/Show/34/0/innerhtml-vs-removechild
-    if(confirm('Are you sure you want to delete all items'))
-    {
-        while(taskList.firstChild){
-            taskList.removeChild(taskList.firstChild);
+    new Attention.Confirm({
+        title: 'Confirm !!',
+        content: 'Are you sure you want to delete all tasks ?',
+        buttonCancel: "No, Keep it!", // custom button text
+        buttonConfirm: "Yes, Delete it!",
+        onConfirm() {
+            while(taskList.firstChild){
+                taskList.removeChild(taskList.firstChild);
+            }
+            clearLocalStorage();
+        },
+        onCancel() {
+          console.log('Canceled');
         }
-        clearLocalStorage();
-    }
+    });
 }
 
 const filterTasks = (e)=> {
