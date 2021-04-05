@@ -21,9 +21,10 @@ const getLocalStorage = (key)=>{
 
 const addTask = (e) => {
     if(taskInput.value === '')
-    {
-        alert('Add Task')
-    }
+    new Attention.Alert({
+        title: 'Alert!',
+        content: 'Oops! Please enter a task!',
+    });
     else
     {
         const li = document.createElement('li');
@@ -87,21 +88,29 @@ const clearTasks = ()=>{
     //taskList.innerHTML = '';
     //Or
     //https://www.measurethat.net/Benchmarks/Show/34/0/innerhtml-vs-removechild
-    new Attention.Confirm({
-        title: 'Confirm !!',
-        content: 'Are you sure you want to delete all tasks ?',
-        buttonCancel: "No, Keep it!", // custom button text
-        buttonConfirm: "Yes, Delete all!",
-        onConfirm() {
-            while(taskList.firstChild){
-                taskList.removeChild(taskList.firstChild);
+    if (getLocalStorage('tasks') != null) {
+        new Attention.Confirm({
+            title: 'Confirm !!',
+            content: 'Are you sure you want to delete all tasks ?',
+            buttonCancel: "No, Keep it!", // custom button text
+            buttonConfirm: "Yes, Delete all!",
+            onConfirm() {
+                while(taskList.firstChild){
+                    taskList.removeChild(taskList.firstChild);
+                }
+                clearLocalStorage();
+            },
+            onCancel() {
+            console.log('Canceled');
             }
-            clearLocalStorage();
-        },
-        onCancel() {
-          console.log('Canceled');
-        }
-    });
+        });
+    }
+    else{
+        new Attention.Alert({
+            title: 'Alert!',
+            content: 'You dont have any tasks to clear.'
+        });
+    }
 }
 
 const filterTasks = (e)=> {
