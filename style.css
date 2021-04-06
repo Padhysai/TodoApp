@@ -7,3 +7,6 @@
 .collection{
     border: 1px solid #fafafa !important;
 }
+.darkenPage {
+    opacity: 0.3;
+}
