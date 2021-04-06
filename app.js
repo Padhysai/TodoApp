@@ -71,37 +71,39 @@ const addTask = (e) => {
 const removeTask = (e) =>{
     //console.log(e.target)
     // Event Delegation --- targetting the "delete-item" class
-    new Attention.Confirm({
-        title: 'Confirm !!',
-        content: 'Are you sure you want to delete this task ?',
-        buttonCancel: "No, Keep it!", // custom button text
-        buttonConfirm: "Yes, Delete it!",
-        onConfirm() {
-            e.target.parentElement.parentElement.remove();
-            //Remove from Local Storage
-            let taskToRemove = e.target.parentElement.parentElement.textContent;
-            let tasks = getLocalStorage('tasks')
-            tasks.forEach((task, index)=>{
-                if(taskToRemove === task){
-                    tasks.splice(index, 1);
-                }
-            })
-            setLocalStorage('tasks', tasks)
-        },
-        onCancel() {
-          console.log('Canceled');
-        },
-        beforeRender: () =>{
-            console.log('before')
-            var element = document.querySelector('#main');
-            element.classList.add("darkenPage");
-        },
-        afterClose: () =>{
-            console.log('after')
-            var element = document.querySelector('#main');
-            element.classList.remove("darkenPage");
-        }
-    });
+    if(e.target.parentElement.classList.contains('delete-item')){
+        new Attention.Confirm({
+            title: 'Confirm !!',
+            content: 'Are you sure you want to delete this task ?',
+            buttonCancel: "No, Keep it!", // custom button text
+            buttonConfirm: "Yes, Delete it!",
+            onConfirm() {
+                e.target.parentElement.parentElement.remove();
+                //Remove from Local Storage
+                let taskToRemove = e.target.parentElement.parentElement.textContent;
+                let tasks = getLocalStorage('tasks')
+                tasks.forEach((task, index)=>{
+                    if(taskToRemove === task){
+                        tasks.splice(index, 1);
+                    }
+                })
+                setLocalStorage('tasks', tasks)
+            },
+            onCancel() {
+            console.log('Canceled');
+            },
+            beforeRender: () =>{
+                console.log('before')
+                var element = document.querySelector('#main');
+                element.classList.add("darkenPage");
+            },
+            afterClose: () =>{
+                console.log('after')
+                var element = document.querySelector('#main');
+                element.classList.remove("darkenPage");
+            }
+        });
+    }
 }
 
 const clearTasks = ()=>{
